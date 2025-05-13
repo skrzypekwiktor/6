@@ -34,7 +34,7 @@ class Main {
             } catch(IOException e) {
 
             } catch(WrongStudentName e) {
-                System.out.println("Błędne imie studenta!");
+                System.out.println("Błędne imię studenta!");
             }
         }
     }
@@ -50,7 +50,7 @@ class Main {
 
     public static String ReadName() throws WrongStudentName {
         scan.nextLine();
-        System.out.println("Podaj imie: ");
+        System.out.println("Podaj imię: ");
         String name = scan.nextLine();
         if(name.contains(" "))
             throw new WrongStudentName();
@@ -77,7 +77,7 @@ class Main {
 
     public static void exercise3() throws IOException {
         scan.nextLine();
-        System.out.println("Podaj imie: ");
+        System.out.println("Podaj imię: ");
         var name = scan.nextLine();
         var wanted = (new Service()).findStudentByName(name);
         if(wanted == null)
