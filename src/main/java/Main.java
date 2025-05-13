@@ -63,7 +63,7 @@ class Main {
         System.out.println("Podaj wiek: ");
         var age = scan.nextInt();
         scan.nextLine();
-        System.out.println("Podaj datę urodzenia DD-MM-YYY");
+        System.out.println("Podaj datę urodzenia DD-MM-YYYY");
         var date = scan.nextLine();
         (new Service()).addStudent(new Student(name, age, date));
     }
