@@ -14,11 +14,21 @@ public class Main {
             try {
                 int ex = menu();
                 switch (ex) {
-                    case 1: exercise1(); break;
-                    case 2: exercise2(); break;
-                    case 3: exercise3(); break;
-                    case 0: return; 
-
+                    case 1: 
+                        exercise1(); 
+                        break;
+                    case 2: 
+                        exercise2(); 
+                        break;
+                    case 3: 
+                        exercise3(); 
+                        break;
+                    case 0: 
+                        System.out.println("Koniec programu.");
+                        return;  
+                    default: 
+                        System.out.println("Niepoprawny wybór, spróbuj ponownie.");
+                        break;
                 }
             } catch (IOException e) {
                 System.out.println("Wystąpił błąd wejścia/wyjścia.");
@@ -52,7 +62,7 @@ public class Main {
                 scan.nextLine(); 
                 return choice;
             } catch (InputMismatchException e) {
-                System.out.println("Błąd, Należy podać liczbę");
+                System.out.println("Błąd: Należy podać liczbę!");
                 scan.nextLine(); 
             }
         }
@@ -62,29 +72,40 @@ public class Main {
         scan.nextLine(); 
         System.out.println("Podaj imię: ");
         String name = scan.nextLine();
-        if (name.contains(" ")) {
+        if (name.contains(" ")) {  
             throw new WrongStudentName();
         }
         return name;
     }
 
     public static int ReadAge() throws WrongAge {
-        System.out.println("Podaj wiek: ");
-        int age = scan.nextInt();
-        if (age < 0 || age > 100) {
-            throw new WrongAge();
+        while (true) {
+            System.out.println("Podaj wiek: ");
+            try {
+                int age = scan.nextInt();
+                if (age < 0 || age > 100) { 
+                    throw new WrongAge();
+                }
+                scan.nextLine(); 
+                return age;
+            } catch (InputMismatchException e) {
+                System.out.println("Błąd: Wiek musi być liczbą!");
+                scan.nextLine(); 
+            }
         }
-        return age;
     }
 
     public static String ReadDate() throws WrongDate {
         scan.nextLine(); 
-        System.out.println("Podaj datę urodzenia DD-MM-RRRR: ");
-        String date = scan.nextLine();
-        if (!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
-            throw new WrongDate();
+        while (true) {
+            System.out.println("Podaj datę urodzenia DD-MM-RRRR: ");
+            String date = scan.nextLine();
+            if (!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                System.out.println("Błąd: Data musi być w formacie DD-MM-RRRR.");
+                continue;
+            }
+            return date;
         }
-        return date;
     }
 
     public static void exercise1() throws IOException, WrongStudentName, WrongAge, WrongDate {
