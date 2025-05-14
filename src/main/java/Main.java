@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 class WrongStudentName extends Exception { }
 class WrongAge extends Exception { }
+class WrongDate extends Exception { }
 
 public class Main {
     public static Scanner scan = new Scanner(System.in);
@@ -20,10 +21,14 @@ public class Main {
             } catch (IOException e) {
                 System.out.println("Wystąpił błąd wejścia/wyjścia.");
             } catch (WrongStudentName e) {
-                System.out.println("Błędne imię studenta! Nie może zawierać spacji.");
+                System.out.println("Błędne imię studenta! ");
             } catch (WrongAge e) {
                 System.out.println("Błędny wiek studenta! Musi być w przedziale 0–100.");
             }
+            catch (WrongDate e)
+                {
+                    System.out.println("Błędna data! Musi być w formacie DD-MM-RRRR.");
+                }
         }
     }
 
@@ -37,7 +42,7 @@ public class Main {
     }
 
     public static String ReadName() throws WrongStudentName {
-        scan.nextLine();  // wyczyść bufor po nextInt()
+        scan.nextLine();  
         System.out.println("Podaj imię: ");
         String name = scan.nextLine();
         if (name.contains(" ")) {
@@ -54,13 +59,22 @@ public class Main {
         }
         return age;
     }
+    public static String ReadDate() throws WrongDate
+    {
+        System.out.println("Podaj datę urodzenia DD-MM-RRRR: ");
+        String date = scan.nextLine();
+        if (!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            throw new WrongDate();
+        }
+        return date;
+        
+    }
 
-    public static void exercise1() throws IOException, WrongStudentName, WrongAge {
+    public static void exercise1() throws IOException, WrongStudentName, WrongAge, WrongDate {
         var name = ReadName();
         var age = ReadAge();
-        scan.nextLine(); // czyszczenie bufora
-        System.out.println("Podaj datę urodzenia (format dowolny na razie): ");
-        var date = scan.nextLine();
+        scan.nextLine(); 
+        var date = ReadDate();
 
         (new Service()).addStudent(new Student(name, age, date));
     }
